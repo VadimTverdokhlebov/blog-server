@@ -3,7 +3,7 @@ import ArticleController from '../controllers/articleController.js';
 
 const router = Router();
 
-router.get('/api/article', ArticleController.getArticle);
+router.get('/api/article', ArticleController.getArticles);
 router.post('/api/article', ArticleController.createArticle);
 
 export default router;

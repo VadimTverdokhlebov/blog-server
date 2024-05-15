@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import indexRouter from './routes/indexRouter.js';
+import errorsMiddleware from './middlewares/errorsMiddleware.js';
 import config from './config.js';
 import path from 'path';
 
@@ -16,14 +17,15 @@ connect().then(() => server());
 async function server() {
     try {
         const app = express();
-        app.use(cors());
-        app.use(express.json());
-        app.use('/', indexRouter);
-
         const PORT = config.serverPort;
         const HOST = config.serverHost;
         const publicPath = path.join(__dirname, 'public');
+         
+        app.use(cors());
+        app.use(express.json());
+        app.use('/', indexRouter);
         app.use(express.static(publicPath));
+        app.use(errorsMiddleware);
 
         app.listen(PORT, () => console.log(`Server listens http://${HOST}:${PORT}`));
     } catch (error) {
@@ -38,8 +40,6 @@ async function connect() {
 
     mongoose
         .connect(db)
-        .then(() => {
-            console.log('Connected to db');
-        })
+        .then(() => console.log('Connected to db'))
         .catch(error => console.log(error));
 }

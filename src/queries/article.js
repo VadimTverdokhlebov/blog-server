@@ -5,5 +5,5 @@ export function createArticle(articleData) {
 }
 
 export function getArticle(articleID) {
-    return Article.findOne({ _id: { $in: articleID } });
+    return Article.find({ _id: { $in: articleID } });
 }
