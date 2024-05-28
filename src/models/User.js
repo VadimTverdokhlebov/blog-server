@@ -5,36 +5,28 @@ const AutoIncrement = mongooseSequence(mongoose);
 
 const { Schema } = mongoose;
 
-const articleSchema = new Schema({
-    content: {
+const userSchema = new Schema({
+    email: {
         type: String,
         require: true
     },
-    img: {
+    photo: {
         type: String,
         require: false
     },
-    description: {
+    bio: {
+        type: String,
+        require: false
+    },
+    password: {
         type: String,
         require: true
     },
-    category: {
+    name: {
         type: String,
-        require: true
-    },
-    title: {
-        type: String,
-        require: true
-    },
-    tags: {
-        type: Array,
-        require: true
-    },
-    articleId: {
-        type: Number,
         require: true
     }
 });
 
-articleSchema.plugin(AutoIncrement, { inc_field: 'articleId' });
-export default mongoose.model('article', articleSchema);
+userSchema.plugin(AutoIncrement, { inc_field: 'userId' });
+export default mongoose.model('user', userSchema);
