@@ -11,9 +11,9 @@ router.get('/api/article/:articleId(\\d+)', ArticleController.getArticle);
 router.get('/api/article', ArticleController.getArticles);
 router.post('/api/article', ArticleController.createArticle);
 
-router.get('/api/user/:userId(\\d+)', UserController.getUser);
-router.get('/api/user', authMiddleware, UserController.getUsers);
-router.post('/api/user', authMiddleware, UserController.updateUserData);
+router.get('/api/user',authMiddleware, UserController.getUser);
+router.get('/api/users', authMiddleware, UserController.getUsers);
+router.put('/api/user', authMiddleware, UserController.updateUserData);
 
 router.post('/auth/registration', validationUserMiddleware, AuthController.registration);
 router.post('/auth/login', AuthController.login);

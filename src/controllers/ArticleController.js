@@ -1,10 +1,10 @@
-import { createArticle, getArticle, getArticles} from '../queries/article.js';
+import { createArticle, getArticle, getArticles } from '../queries/article.js';
 
 export default class ArticleController {
     static async createArticle(req, res, next) {
         try {
-            const { content, category, title, tags } = req.body;
-            const result = await createArticle({ content, category, title, tags });
+            const { content, category, title, tags, img, description } = req.body;
+            const result = await createArticle({ content, category, title, tags, img, description });
             return res.json({ result });
         } catch (err) {
             next(err);
@@ -20,7 +20,7 @@ export default class ArticleController {
     }
     static async getArticle(req, res, next) {
         try {
-            const articleId = req.params.articleId
+            const articleId = req.params.articleId;
             const result = await getArticle(articleId);
             return res.json({ result });
         } catch (err) {

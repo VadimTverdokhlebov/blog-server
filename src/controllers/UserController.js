@@ -1,4 +1,4 @@
-import { createUser, getUsers, getUser, updateUserData } from '../queries/user.js';
+import { createUser, getUsers, checkUser, updateUserData } from '../queries/user.js';
 
 export default class UserController {
     static async createUser(req, res, next) {
@@ -30,8 +30,9 @@ export default class UserController {
     }
     static async getUser(req, res, next) {
         try {
-            const userId = req.params.userId;
-            const result = await getUser(userId);
+            // const userId = req.params.userId;
+            const email = req.user.email;
+            const result = await checkUser(email);
             return res.json(result);
         } catch (err) {
             next(err);

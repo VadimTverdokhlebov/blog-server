@@ -41,7 +41,7 @@ export default class AuthController {
                 throw ApiError.badRequest('The user not found!');
             }
 
-            const validPassword = await bcrypt.compare(password, user.hashedPassword);
+            const validPassword = await bcrypt.compare(password, user.password);
 
             if (!validPassword) {
                 throw ApiError.badRequest('Insert incorrect password');
