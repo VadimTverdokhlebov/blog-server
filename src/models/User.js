@@ -25,7 +25,11 @@ const userSchema = new Schema({
     name: {
         type: String,
         require: true
-    }
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
 });
 
 userSchema.plugin(AutoIncrement, { inc_field: 'userId' });

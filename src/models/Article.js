@@ -6,6 +6,10 @@ const AutoIncrement = mongooseSequence(mongoose);
 const { Schema } = mongoose;
 
 const articleSchema = new Schema({
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     content: {
         type: String,
         require: true
