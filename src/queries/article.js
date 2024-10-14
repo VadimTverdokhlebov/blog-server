@@ -12,3 +12,7 @@ export function getArticles() {
 export function getArticle(articleId) {
     return Article.findOne({ articleId });
 }
+
+export function getUserArticles(userObjectID) {
+    return Article.find({ author: { $in: userObjectID } });
+}

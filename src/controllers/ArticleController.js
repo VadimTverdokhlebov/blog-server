@@ -1,17 +1,12 @@
-import { createArticle, getArticle, getArticles } from '../queries/article.js';
-import { sendRequest } from '../shared/request.js'
+import { createArticle, getArticle, getArticles, getUserArticles } from '../queries/article.js';
+import { checkUser } from '../queries/user.js';
 export default class ArticleController {
     static async createArticle(req, res, next) {
         try {
             const { content, category, title, tags, img, description } = req.body;
-            const requestData = {
-                x: content
-            };
-            const url = 'http://127.0.0.1:5003/model';
-
-            const categoruIA = await sendRequest(url, requestData);
-
-            const result = await createArticle({ content, category, title, tags, img, description });
+            const email = req.user.email;
+            const user = await checkUser(email);
+            const result = await createArticle({ content, category: category, title, tags, img, description, author:user._id});
             return res.json({ result });
         } catch (err) {
             next(err);
@@ -29,6 +24,16 @@ export default class ArticleController {
         try {
             const articleId = req.params.articleId;
             const result = await getArticle(articleId);
+            return res.json({ result });
+        } catch (err) {
+            next(err);
+        }
+    }
+    static async getUserArticles(req, res, next) {
+        try {
+            const email = req.user.email;
+            const user = await checkUser(email);
+            const result = await getUserArticles(user._id);
             return res.json({ result });
         } catch (err) {
             next(err);

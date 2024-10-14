@@ -30,6 +30,14 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    savedArticle: [
+        new Schema({
+            article: {
+                type: Schema.Types.ObjectId,
+                ref: 'Article'
+            }
+        })
+    ]
 });
 
 userSchema.plugin(AutoIncrement, { inc_field: 'userId' });

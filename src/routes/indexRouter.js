@@ -9,8 +9,10 @@ const router = Router();
 
 router.get('/api/article/:articleId(\\d+)', ArticleController.getArticle);
 router.get('/api/article', ArticleController.getArticles);
-router.post('/api/article', ArticleController.createArticle);
+router.get('/api/articles', authMiddleware, ArticleController.getUserArticles);
+router.post('/api/article',authMiddleware, ArticleController.createArticle);
 
+router.post('/api/user/like',authMiddleware, UserController.likeArticles);
 router.get('/api/user',authMiddleware, UserController.getUser);
 router.get('/api/users', authMiddleware, UserController.getUsers);
 router.put('/api/user', authMiddleware, UserController.updateUserData);
